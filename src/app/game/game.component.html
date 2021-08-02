@@ -1,0 +1,66 @@
+<span class="title">Flash Square Game</span>
+
+<button class="btn btn-light start_pause hidden" (click)="startGame()" #startGameBut>START</button>
+<button class="btn btn-lighte start_pause" (click)="pauseGame()" #pauseGameBut>PAUSE</button>
+<button class="btn btn-light new_game" (click)="newGame()" #newGameBut>NEW GAME</button>
+
+<div class="show_points">
+    <span class="points_span">Points</span>
+    <div class="points_block" #showScore>0</div>
+</div>
+
+<div class="show_time">
+    <span class="time_span">Time Left</span>
+    <div class="time_block" #showTime>60</div>
+</div>
+
+<div class="game_area-block" >
+    <div id="area" class="area-block" #area>
+    </div>
+</div>
+
+<div id="pause-area" class="disabled_pause-area hidden">
+    <span class="pause_area-span">Pause</span>
+</div>
+
+<div data-bs-toggle="modal" data-bs-target="#exampleModal" #modal></div>
+
+<div class="modal" 
+     tabindex="-1" 
+     id="exampleModal" 
+     data-bs-backdrop="static" 
+     aria-labelledby="staticBackdropLabel" 
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Congratulations!</h5>
+            </div>
+            <div class="modal-body">
+                <p id="score"></p>
+            <span>Name</span>
+                <input id="username" type="text" >
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveGame()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="side_table-block">
+    <content class="game_rules">
+        <span class="game_rules-text">
+            Cubes are removed from the
+            field by hovering the cursor
+            on the cube and left-click
+            mice. The time is given 1
+            minute.
+        </span>
+    </content>
+
+    <div class="result_table-block">
+        <span class="result_table-span">Result<br>Table</span>
+        <ul class="result_table"></ul>
+    </div>
+</div>
