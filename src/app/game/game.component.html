@@ -1,8 +1,23 @@
 <span class="title">Flash Square Game</span>
 
-<button class="btn btn-light start_pause hidden" (click)="startGame()" #startGameBut>START</button>
-<button class="btn btn-lighte start_pause" (click)="pauseGame()" #pauseGameBut>PAUSE</button>
-<button class="btn btn-light new_game" (click)="newGame()" #newGameBut>NEW GAME</button>
+<button class="btn btn-light start_pause hidden" 
+        (click)="startGame()" 
+        #startGameBut>
+    START
+</button>
+
+<button class="btn btn-lighte start_pause" 
+        (click)="pauseGame()" 
+        disabled 
+        #pauseGameBut>
+    PAUSE
+</button>
+
+<button class="btn btn-light new_game" 
+        (click)="newGame()" 
+        #newGameBut>
+    NEW GAME
+</button>
 
 <div class="show_points">
     <span class="points_span">Points</span>
@@ -15,11 +30,11 @@
 </div>
 
 <div class="game_area-block" >
-    <div id="area" class="area-block" #area>
+    <div removesquare class="area-block" #area>
     </div>
 </div>
 
-<div id="pause-area" class="disabled_pause-area hidden">
+<div #pauseArea class="disabled_pause-area hidden">
     <span class="pause_area-span">Pause</span>
 </div>
 
@@ -37,12 +52,17 @@
                 <h5 class="modal-title">Congratulations!</h5>
             </div>
             <div class="modal-body">
-                <p id="score"></p>
+                <p #score></p>
             <span>Name</span>
-                <input id="username" type="text" >
+                <input #username type="text" >
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveGame()">Save changes</button>
+                <button type="button" 
+                        class="btn btn-primary" 
+                        data-bs-dismiss="modal" 
+                        (click)="saveResult()">
+                    Save changes
+                </button>
             </div>
         </div>
     </div>
@@ -61,6 +81,6 @@
 
     <div class="result_table-block">
         <span class="result_table-span">Result<br>Table</span>
-        <ul class="result_table"></ul>
+        <ul id="resultTable" class="result_table" #resultTable></ul>
     </div>
 </div>

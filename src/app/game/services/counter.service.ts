@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CounterService {
+  private renderer: Renderer2;
 
-  constructor() { }
+  constructor(rendererFactory: RendererFactory2) {
+    this.renderer = rendererFactory.createRenderer(null, null);
+   }
 
   private point: number = 0;
   
-  counter(dom: any) {
+  counter() {
     ++this.point
     
-    dom.innerHTML = this.point;
     localStorage.setItem('points', JSON.stringify(this.point));
   }
 
