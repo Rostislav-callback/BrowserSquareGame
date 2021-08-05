@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Renderer2, RendererFactory2 } from '@angular/core';
 
+import { Subject } from 'rxjs';
+
 import { TimerService } from './services/timer.service';
 import { CounterService } from './services/counter.service';
 import { ModalService } from './services/modal.service';
@@ -29,18 +31,22 @@ export class GameComponent implements OnInit, AfterViewInit {
               private renderService: RenderElementsService, 
               rendererFactory: RendererFactory2) { 
     this.renderer = rendererFactory.createRenderer(null, null);
+    this.timerSubject$ = this.timerService.timerSubject$;
   }
 
   private gameTimeout: any;
   private renderer: Renderer2;
+  private timerSubject$: Subject<{pause?: boolean, timerValue?: number}>
   
   ngOnInit(): void {
     localStorage.setItem('time', JSON.stringify(60));
-    localStorage.setItem('points', JSON.stringify(0));  
+    localStorage.setItem('points', JSON.stringify(0));   
   }
 
   ngAfterViewInit() {
     this.addToTable();
+    this.timerService.stopTimer()
+    this.timerService.timer(this.showTime.nativeElement);
   }
 
   newGame() {
@@ -57,7 +63,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       this.area.nativeElement.appendChild(square);
     }
 
-    this.timerService.timer(this.showTime.nativeElement);   
+    this.timerService.startTimer(); 
     this.gameTimeoutFunc();
   }
 
@@ -78,7 +84,7 @@ export class GameComponent implements OnInit, AfterViewInit {
       time.innerHTML = '60';
       this.showModal();
       this.counterService.clearCounter();
-      this.timerService.stopGame(); 
+      this.timerService.stopTimer(); 
       this.timerService.clearTimer();
     }, gameTime);
   }
@@ -114,7 +120,8 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   startGame() {
-    this.timerService.timer(this.showTime.nativeElement);
+    //this.timerService.timer(this.showTime.nativeElement);
+    this.timerService.startTimer();
     this.gameTimeoutFunc();
     this.pauseArea.nativeElement.classList.add('hidden');
     this.startGameBut.nativeElement.classList.add('hidden');
@@ -122,7 +129,7 @@ export class GameComponent implements OnInit, AfterViewInit {
   }
 
   pauseGame() {
-    this.timerService.stopGame();
+    this.timerService.stopTimer();
     clearTimeout(this.gameTimeout);
     this.pauseArea.nativeElement.classList.remove('hidden');
     this.startGameBut.nativeElement.classList.remove('hidden');

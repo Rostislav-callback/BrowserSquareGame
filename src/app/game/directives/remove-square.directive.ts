@@ -28,7 +28,7 @@ export class RemoveSquareDirective {
       const getPoints = localStorage.getItem('points');
 
       const element = () => {
-        for(let item of grandParent) {
+        for (let item of grandParent) {
           if (item.classList.contains('show_points')) {
             const childItems = item.childNodes;
             return childItems[1];
@@ -36,7 +36,7 @@ export class RemoveSquareDirective {
         }
       }
 
-      for(let i = 0; i < end; i++) {
+      for (let i = 0; i < end; i++) {
         const square = this.renderService.sqwereRender();
         area.appendChild(square);
       }
